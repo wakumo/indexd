@@ -18,12 +18,12 @@ let TXIN = {
   valueType: typeforce.compile({
     txId: typeforce.HexN(64),
     vin: typeforce.UInt32,
-    coinbase: typeforce.UInt8
+    //coinbase: typeforce.UInt8  // Commented for counterparty functionality, uncomment if using regtest
   }),
   value: vstruct([
     ['txId', vstruct.String(32, 'hex')],
     ['vin', vstruct.UInt32LE],
-    ['coinbase', vstruct.Byte]
+    //['coinbase', vstruct.Byte] // Commented for counterparty functionality, uncomment if using regtest
   ])
 }
 
@@ -39,7 +39,7 @@ TxinIndex.prototype.mempool = function (tx, events) {
   let { txId, ins } = tx
 
   ins.forEach((input, vin) => {
-    if (input.coinbase) return
+    //if (input.coinbase) return  // Commented for counterparty functionality, uncomment if using regtest
     let { prevTxId, vout } = input
 
     utils.getOrSetDefault(this.txins, `${prevTxId}:${vout}`, [])
@@ -56,7 +56,7 @@ TxinIndex.prototype.connect = function (atomic, block, events) {
     let { txId, ins } = tx
 
     ins.forEach((input, vin) => {
-      let coinbase = ('coinbase' in input)?1:0
+      //let coinbase = ('coinbase' in input)?1:0  // Commented for counterparty functionality, uncomment if using regtest
 
       let { prevTxId, vout } = input
 
@@ -65,7 +65,7 @@ TxinIndex.prototype.connect = function (atomic, block, events) {
         vout = 0xffffffff
       }
 
-      atomic.put(TXIN, { txId: prevTxId, vout }, { txId, vin, coinbase })
+      atomic.put(TXIN, { txId: prevTxId, vout }, { txId, vin/*, coinbase*/ })  // Commented for counterparty functionality, uncomment if using regtest
 
       if (events) events.push(['txin', `${prevTxId}:${vout}`, txId, vin])
     })

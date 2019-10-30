@@ -18,12 +18,12 @@ let TXO = {
   valueType: typeforce.compile({
     value: typeforce.UInt53,
     script: typeforce.Buffer,
-    coinbase: typeforce.UInt8
+    //coinbase: typeforce.UInt8  // Commented for counterparty functionality, uncomment if using regtest
   }),
   value: vstruct([
     ['value', vstruct.UInt64LE],
     ['script', vstruct.VarBuffer(varuint)],
-    ['coinbase', vstruct.Byte]
+    //['coinbase', vstruct.Byte]  // Commented for counterparty functionality, uncomment if using regtest
   ])
 }
 
