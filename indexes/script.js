@@ -26,7 +26,7 @@ let SCRIPT = {
   }),
   value: vstruct([
     ['value', vstruct.UInt64LE],
-    //['coinbase', vstruct.Byte]  // Commented for counterparty functionality, uncomment if using regtest
+    ['coinbase', vstruct.Byte]
   ])
 }
 
