@@ -33,7 +33,7 @@ function augment (tx) {
 }
 
 function block (rpc, blockId, done) {
-  rpcd(rpc, 'getblock', [blockId, true], (err, block) => {
+  rpcd(rpc, 'getblock', [blockId, 2], (err, block) => {
     if (err) return done(err)
 
     block.blockId = blockId
