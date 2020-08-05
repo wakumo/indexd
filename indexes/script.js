@@ -120,7 +120,7 @@ ScriptIndex.prototype.txosBy = function (db, { scId, heightRange, mempool }, max
   let [fromHeight, toHeight] = heightRange
   let distance = toHeight - fromHeight
   if (distance < 0) return callback(null, [])
-  if (distance < 2) maxRows = Infinity
+  if (distance < 2) maxRows = 99999999999 // set to 99999999999 i.e very large value instead of Infinity to pass typecheck
   fromHeight = Math.min(Math.max(0, fromHeight), 0xffffffff)
   toHeight = Math.min(Math.max(0, toHeight), 0xffffffff)
 
